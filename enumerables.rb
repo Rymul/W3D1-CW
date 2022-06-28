@@ -72,27 +72,34 @@ class Array
     end
 
     def my_zip(*args)
-        new_arr = Array.new(self.length) {Array.new(self.length)}
-        self.each_with_index do |ele, j|
-            new_arr[0][j] = ele
+        hash = Hash.new { |hash, key| hash[key] = [] }
+        self.each_with_index { |ele, i| hash[i] << ele }
+
+        args.each do |subarr|
+            (0...self.length).each { |i| hash[i] << subarr[i] }
         end
 
-        args.each_with_index do |subarr, i|
-            subarr.each_with_index do |ele, j|
-                new_arr[i] = ele
-            end
-        end
+        hash.values
     end
-
-    # return a new array of length self. where every subarray is composed of the elements at the same index
-    #nil in where length is missing. Array new 
-
 end
 
 
+# Examples
 
-arr = [1,3,[5,7],[4,[4,6]]]
-p arr.my_flatten
+# arr = [1,2,3,4]
 
+
+# arr = [1,3,[5,7],[4,[4,6]]]
+# p arr.my_flatten
+
+a = [ 4, 5, 6 ]
+b = [ 7, 8, 9 ]
+p [1, 2, 3].my_zip(a, b) # => [[1, 4, 7], [2, 5, 8], [3, 6, 9]]
+p a.my_zip([1,2], [8])   # => [[4, 1, 8], [5, 2, nil], [6, nil, nil]]
+p [1, 2].my_zip(a, b)    # => [[1, 4, 7], [2, 5, 8]]
+
+c = [10, 11, 12]
+d = [13, 14, 15]
+p [1, 2].my_zip(a, b, c, d)
 
 
