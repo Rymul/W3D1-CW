@@ -81,25 +81,31 @@ class Array
 
         hash.values
     end
+
+    def my_rotate(num = 1)
+        arr = []
+        self.each_with_index do |ele , i|
+            new_i = (i-num) % self.length
+            arr[new_i] = ele
+        end
+        arr
+    end
+
+    def my_join(str = "")
+        new_str = ""
+        self.each { |ele| new_str += ele + str }
+        new_str[-1] == str ?   new_str[0...-1] : new_str
+    end
+
+    def my_reverse
+        arr =[]
+        self.each {|ele|   arr.unshift(ele) }
+        arr
+    end
+
 end
 
-
-# Examples
-
-# arr = [1,2,3,4]
-
-
-# arr = [1,3,[5,7],[4,[4,6]]]
-# p arr.my_flatten
-
-a = [ 4, 5, 6 ]
-b = [ 7, 8, 9 ]
-p [1, 2, 3].my_zip(a, b) # => [[1, 4, 7], [2, 5, 8], [3, 6, 9]]
-p a.my_zip([1,2], [8])   # => [[4, 1, 8], [5, 2, nil], [6, nil, nil]]
-p [1, 2].my_zip(a, b)    # => [[1, 4, 7], [2, 5, 8]]
-
-c = [10, 11, 12]
-d = [13, 14, 15]
-p [1, 2].my_zip(a, b, c, d)
+p [ "a", "b", "c" ].my_reverse   #=> ["c", "b", "a"]
+p [ 1 ].my_reverse               #=> [1]
 
 
